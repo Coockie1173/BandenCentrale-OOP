@@ -1,4 +1,5 @@
 #include "Rim.h"
+#include <iostream>
 
 bool Rim::GetAluminium()
 {
@@ -39,6 +40,9 @@ Rim::Rim(bool Al, std::string Col, int W)
 
 Rim::Rim()
 {
+    Aluminium = false;
+    Width = 0;
+    Colour = "";
 }
 
 Rim::~Rim()
@@ -46,4 +50,12 @@ Rim::~Rim()
     Aluminium = NULL;
     Colour = "";
     Width = NULL;
+}
+
+void Rim::PrintInfo()
+{
+    PrintBaseData();
+    std::cout << "\t" << "Aluminium: " << this->GetAluminium() << "\n";
+    std::cout << "\t" << "Colour: " << this->GetColour() << "\n";
+    std::cout << "\t" << "Width (Rim): " << this->GetWidth() << "\n";
 }

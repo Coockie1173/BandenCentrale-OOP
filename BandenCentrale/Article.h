@@ -27,5 +27,9 @@ public:
 	Article();
 	//~Article();
 	virtual ~Article();
+
+	virtual void PrintInfo();
+
+	void PrintBaseData();
 };
 

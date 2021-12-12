@@ -3,7 +3,7 @@
 #include "TireCenter.h"
 //geen class nodig
 
-static const std::string FilePath = ".\TireCenterData";
+static const std::string FilePath = ".\\TireCenterData";
 
 void StoreInt(int AmmItems, std::ofstream& wf);
 

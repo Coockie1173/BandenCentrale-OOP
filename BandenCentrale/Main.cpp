@@ -45,6 +45,7 @@ int main(void)
 	while (Input != 0 && Input != 1)
 	{
 		std::cout << "What type of employee are you?\nManager = 0\nEmployee = 1\n";
+		std::cin.clear();
 		std::cin >> Input;
 	}
 	CurrentType = (TypeWerknemer)Input;
@@ -84,6 +85,7 @@ int main(void)
 			}
 		}
 
+		std::cin.clear();
 		std::cin >> Choice;
 
 		if (((Choice > EmployeeArrSize - 1 && CurrentType == TypeWerknemer::Manager) || Choice <= EmployeeArrSize - 1) && Choice != 0)

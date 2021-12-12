@@ -1,5 +1,5 @@
-
 #include "Tire.h"
+#include <iostream>
 
 int Tire::GetWidth()
 {
@@ -63,4 +63,13 @@ Tire::~Tire()
     Height = NULL;
     SpeedIndex = "";
     Season = NULL;
+}
+
+void Tire::PrintInfo()
+{
+    PrintBaseData();
+    std::cout << "\t" << "Width (Tire): " << this->GetWidth() << "\n";
+    std::cout << "\t" << "Height: " << this->GetHeight() << "\n";
+    std::cout << "\t" << "Speed Index: " << this->GetSpeedIndex() << "\n";
+    std::cout << "\t" << "Season: " << this->GetSeason() << "\n";
 }

@@ -22,5 +22,7 @@ public:
 	Tire();
 	Tire(int W, int H, int SI, char Seas);
 	~Tire();
+
+	void PrintInfo() override;
 };
 

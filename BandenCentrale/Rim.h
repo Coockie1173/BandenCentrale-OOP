@@ -17,5 +17,7 @@ public:
 	Rim(bool Al, std::string Col, int W);
 	Rim();
 	~Rim();
+
+	void PrintInfo() override;
 };
 

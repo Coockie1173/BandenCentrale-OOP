@@ -242,7 +242,7 @@ TireCenter LoadTireCenter()
 
 	rf.close();
 	//not using .good because it doesn't hit EOF somehow?
-	if (!rf.fail()) {
+	if (rf.fail()) {
 		std::cout << "Error occurred at reading time!\n";
 		//error reading, send out clean TireCenter
 		return TireCenter();
