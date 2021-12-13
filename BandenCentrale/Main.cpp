@@ -15,6 +15,8 @@ void (*ExecutionPerState[])(TireCenter * TC) = { ChangeArticle, PlaceOrder, Dumm
 												 SearchArticle, SearchCustomer, AddArticle, DeleteArticle, DeleteCustomer,
 												 ChangeCompany };
 
+//TODO DEALLOCATE EVERYTHING ON EXIT
+
 const std::string EmployeeOptions[] = {
 	"Exit",
 	"Change Article", //WIP

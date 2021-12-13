@@ -523,37 +523,8 @@ void PlaceOrder(TireCenter* TC)
 	std::vector<Customer*> Custs = TC->GetCustomers();
 	if (CustomerID >= 0 && (size_t)CustomerID < Custs.size())
 	{
-		//VALID
-		std::cout << "Enter Article ID: ";
-		std::cin >> ArticleID;
-		std::cin.ignore();
-		std::vector<Article*> Arts = TC->GetArticles();
-		if (ArticleID >= 0 && (size_t)ArticleID < Arts.size())
-		{
-			//ALSO VALID WOOOT. One more check and we know for sure if the invoice can be made properly
-			Article* CurrentSelection = Arts[ArticleID];
-			int Stock = CurrentSelection->GetStock();
-			std::cout << "Enter Amount: ";
-			std::cin >> Quantity;
-			std::cin.ignore();
-			if (Stock >= Quantity)
-			{
-				//ORDER AWAY
-
-			}
-			else
-			{
-				std::cout << "Not enough in stock!\n";
-				delete MyInvoice;
-				return;
-			}
-		}
-		else
-		{
-			std::cout << "Invalid ID!\n";
-			delete MyInvoice;
-			return;
-		}
+		//VALID - start adding Articles
+		
 	}
 	else
 	{

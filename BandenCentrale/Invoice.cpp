@@ -1,26 +1,26 @@
 #include "Invoice.h"
 
-Customer Invoice::GetCustomer()
+Customer* Invoice::GetCustomer()
 {
     return Cust;
 }
 
-void Invoice::SetCustomer(Customer NewCust)
+void Invoice::SetCustomer(Customer* NewCust)
 {
     Cust = NewCust;
 }
 
-std::vector<Article> Invoice::GetArticles()
+std::vector<Article*> Invoice::GetArticles()
 {
     return Articles;
 }
 
-void Invoice::AddArticle(Article A)
+void Invoice::AddArticle(Article* A)
 {
     Articles.push_back(A);
 }
 
-void Invoice::SetArticles(std::vector<Article> A)
+void Invoice::SetArticles(std::vector<Article*> A)
 {
     Articles = A;
 }
@@ -55,7 +55,7 @@ float Invoice::CalcPrice()
     return Price - CalcDiscount();
 }
 
-Invoice::Invoice(Customer C, std::vector<Article> Arts, float Price, int Disc)
+Invoice::Invoice(Customer* C, std::vector<Article*> Arts, float Price, int Disc)
 {
     Cust = C;
     Articles = Arts;
@@ -65,10 +65,28 @@ Invoice::Invoice(Customer C, std::vector<Article> Arts, float Price, int Disc)
 
 Invoice::Invoice()
 {
+    Cust = NULL;
+    Discount = 0;
+    Price = NULL;
 }
 
 Invoice::~Invoice()
 {
     Price = NULL;
     Discount = NULL;
+}
+
+void Invoice::AddQuantity(int Q)
+{
+    Quantities.push_back(Q);
+}
+
+std::vector<int> Invoice::GetQuantities()
+{
+    return Quantities;
+}
+
+void Invoice::SetQuantities(std::vector<int> Q)
+{
+    Quantities = Q;
 }
