@@ -16,6 +16,6 @@ public:
 	void SetCType(char NewType);
 	Customer();
 	Customer(std::string Name, std::string Addr, char Type);
-	~Customer();
+	virtual ~Customer() = default;
 };
 

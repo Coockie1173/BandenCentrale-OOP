@@ -1,6 +1,6 @@
 #pragma once
 #include "Customer.h"
-class Company : Customer
+class Company : public Customer
 {
 	//inherit Customer
 private:

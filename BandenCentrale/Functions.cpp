@@ -2,6 +2,8 @@
 #include "Article.h"
 #include "Rim.h"
 #include "Tire.h"
+#include "Customer.h"
+#include "Company.h"
 
 void Dummy(TireCenter * TC)
 {
@@ -39,9 +41,6 @@ void AddArticle(TireCenter * TC)
 	}
 
 #pragma region Input
-
-
-
 	std::string Name;
 	std::cout << "Name of product: ";
 	std::cin.clear();
@@ -92,11 +91,9 @@ void AddRim(Article *A)
 	bool Aluminum;
 	std::cout << "Is the rim aluminum (1/0)?\n";
 	std::cin >> Aluminum;
-	std::cin.ignore();
 	std::string Colour;
 	std::cout << "Rim colour\n";
 	std::cin >> Colour;
-	std::cin.ignore();
 	int W;
 	std::cout << "Rim Width\n";
 	std::cin >> W;
@@ -122,16 +119,16 @@ void AddTire(Article *A)
 
 	std::cout << "Tire Width\n";
 	std::cin >> Width;
-	std::cin.ignore();
+	std::cin.clear();
 	std::cout << "Tire Height\n";
 	std::cin >> Height;
-	std::cin.ignore();
+	std::cin.clear();
 	std::cout << "Tire Speed Index\n";
 	std::cin >> SI;
-	std::cin.ignore();
+	std::cin.clear();
 	std::cout << "Tire Season\n";
 	std::cin >> Season;
-	std::cin.ignore();
+	std::cin.clear();
 
 	R->SetWidth(Width);
 	R->SetHeight(Height);
@@ -232,6 +229,29 @@ void ChangeCompany(TireCenter* TC)
 	}
 }
 
+const std::string SharedArticleOptions[] = 
+{
+	"Name",
+	"Manufacturer",
+	"Diameter",
+	"Price",
+};
+
+const std::string TireOptions[]
+{
+	"Width",
+	"Height",
+	"SpeedIndex",
+	"Season",
+};
+
+const std::string RimOptions[]
+{
+	"Width",
+	"IsAluminium",
+	"Colour",
+};
+
 void ChangeArticle(TireCenter* TC)
 {
 	std::cout << "Give the item index of the item you want to modify: ";
@@ -239,9 +259,112 @@ void ChangeArticle(TireCenter* TC)
 	std::cin.clear();
 	std::cin >> Choice;
 
-	if (Choice > 0 && (size_t)Choice < TC->GetArticles().size())
+	std::vector<Article*> Arts = TC->GetArticles();
+
+	if (Choice >= 0 && (size_t)Choice < Arts.size())
 	{
 		//grab valid index
-		
+		Article* A = Arts[Choice];
+
+		std::cout << "Select an option to change:\n";
+
+		int SharedLength = sizeof(SharedArticleOptions) / sizeof(SharedArticleOptions[0]);
+
+		for (int i = 0; i < SharedLength; i++)
+		{
+			std::cout << "\t" << i << " " << SharedArticleOptions[i] << "\n";
+		}		
+
+		switch (A->GetAType())
+		{
+			case 'R':
+			{
+				int TLen = sizeof(RimOptions) / sizeof(RimOptions[0]);
+				for (int i = 0; i < TLen; i++)
+				{
+					std::cout << "\t" << i + SharedLength << " " << RimOptions[i] << "\n";
+				}
+				break;
+			}
+			case 'T':
+			{
+				int TLen = sizeof(TireOptions) / sizeof(TireOptions[0]);
+				for (int i = 0; i < TLen; i++)
+				{
+					std::cout << "\t" << i + SharedLength << " " << TireOptions[i] << "\n";
+				}
+				break;
+			}
+		}
 	}
+	else
+	{
+		std::cout << "Invalid index!\n";
+	}
+}
+
+void DeleteArticle(TireCenter* TC)
+{
+	std::cout << "Give the item index of the item you want to delete: ";
+	int Choice;
+	std::cin.clear();
+	std::cin >> Choice;
+
+	std::vector<Article*> Arts = TC->GetArticles();
+	if (Choice >= 0 && (size_t)Choice < Arts.size())
+	{
+		TC->RemoveArticle(Choice);
+	}
+	else
+	{
+		std::cout << "Invalid index!\n";
+	}
+}
+
+void AddCustomer(TireCenter* TC)
+{
+	Customer* C;
+	std::cout << "Is this a company? (1 if true): ";
+	int Comp;
+	std::cin >> Comp;
+	std::cin.clear();
+	if (Comp == 1)
+	{
+		C = new Company();
+		C->SetCType('C');
+	}
+	else
+	{
+		C = new Customer();
+		C->SetCType('P');
+	}
+
+	std::string Buf;
+	std::cout << "Name: ";
+	std::getline(std::cin, Buf, '\n');
+	std::getline(std::cin, Buf, '\n');
+	std::cin.clear();
+	C->SetName(Buf);
+	std::cout << "Address: ";
+	std::getline(std::cin, Buf, '\n');
+	std::getline(std::cin, Buf, '\n');
+	std::cin.clear();
+	C->SetAddress(Buf);
+
+	if (Comp == 1)
+	{
+		Company* Comp = dynamic_cast<Company*>(C);
+		std::cout << "VAT number: ";
+		std::getline(std::cin, Buf, '\n');
+		std::getline(std::cin, Buf, '\n');
+		std::cin.clear();
+		Comp->SetVAT(Buf);
+		int VolDisc;
+		std::cout << "Volume discount: ";
+		std::cin >> VolDisc;
+		std::cin.clear();
+		Comp->SetVolumeDiscount(VolDisc);
+	}
+
+	TC->AddCustomer(C);
 }

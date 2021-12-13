@@ -70,6 +70,11 @@ void TireCenter::AddArticle(Article* A)
     Articles.push_back(A);
 }
 
+void TireCenter::RemoveArticle(int ArticleIndex)
+{
+    Articles.erase(Articles.begin() + ArticleIndex);
+}
+
 TireCenter::TireCenter()
 {
 }

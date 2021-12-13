@@ -27,6 +27,7 @@ public:
 	void SetCustomers(std::vector<Customer*> NewCustomers);
 	void AddCustomer(Customer* C);
 	void AddArticle(Article* A);
+	void RemoveArticle(int ArticleIndex);
 
 	TireCenter();
 	TireCenter(std::string Name, std::string addr, std::vector<Article*> Arts, std::vector<Customer*> Customers);

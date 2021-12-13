@@ -4,6 +4,8 @@
 #include "FileHandler.h"
 #include "Rim.h"
 #include "Tire.h"
+#include "Company.h"
+#include "Customer.h"
 
 void StoreInt(int AmmItems, std::ofstream& wf)
 {
@@ -89,20 +91,6 @@ void SaveTireCenter(TireCenter* TC)
 	StoreInt(AmmItems, wf);
 
 	std::vector<Article*> Articles = TC->GetArticles();
-	/*
-	for (int i = 0; i < AmmItems; i++)
-	{
-		//iterate over every article
-		//store generic data first
-		//important for allocation, Type first;
-		char buf = Articles[i].GetAType();
-		wf.write(&buf, sizeof(buf));
-		int Dia = Articles[i].GetDiameter();
-		StoreInt(Dia, wf);
-		Dia = Articles[i].GetStock();
-		StoreInt(Dia, wf);
-		
-	}*/
 
 	for (Article* A : Articles)
 	{
@@ -137,6 +125,25 @@ void SaveTireCenter(TireCenter* TC)
 				wf.write(&buf, sizeof(buf));
 				break;
 			}
+		}
+	}
+
+	AmmItems = TC->GetCustomers().size();
+	StoreInt(AmmItems, wf);
+
+	std::vector<Customer*> Customers = TC->GetCustomers();
+
+	for (Customer* C : Customers)
+	{
+		char buf = C->GetCType();
+		wf.write(&buf, sizeof(buf));
+		StoreString(C->GetName(), wf);
+		StoreString(C->GetAddress(), wf);
+		if (buf == 'C')
+		{
+			Company* CMP = dynamic_cast<Company*>(C);
+			StoreString(CMP->GetVat(),wf);
+			StoreInt(CMP->GetVolumeDiscount(), wf);
 		}
 	}
 
@@ -189,7 +196,7 @@ TireCenter LoadTireCenter()
 			}
 			default:
 			{
-				A = new Article();
+				
 			}
 		}
 
@@ -226,8 +233,11 @@ TireCenter LoadTireCenter()
 				ReadInt(rf, Num);
 				T->SetWidth(Num);
 				T->SetSpeedIndex(ReadString(rf));
-				ReadInt(rf, Num);
-				T->SetWidth(Num);
+				/*ReadInt(rf, Num);
+				T->SetWidth(Num);*/
+				char buf;
+				rf.read(&buf, sizeof(buf));
+				T->SetSeason(buf);
 				TC.AddArticle(T);
 				break;
 			}
@@ -239,6 +249,39 @@ TireCenter LoadTireCenter()
 			}
 		}
 	}
+
+	std::vector<Customer*> Customers;
+	ReadInt(rf, AmmArticles);
+
+	for (int i = 0; i < AmmArticles; i++)
+	{
+		Customer* C;
+		char Typ;
+		rf.read(&Typ, sizeof(Typ));
+
+		if (Typ == 'C')
+		{
+			C = new Company();
+		}
+		else
+		{
+			C = new Customer();
+		}
+
+		C->SetName(ReadString(rf));
+		C->SetAddress(ReadString(rf));
+		if (Typ == 'C')
+		{
+			Company* CMP = dynamic_cast<Company*>(C);
+			CMP->SetVAT(ReadString(rf));
+			int Disc;
+			ReadInt(rf, Disc);
+			CMP->SetVolumeDiscount(Disc);
+		}
+
+		Customers.push_back(C);
+	}
+	TC.SetCustomers(Customers);
 
 	rf.close();
 	//not using .good because it doesn't hit EOF somehow?

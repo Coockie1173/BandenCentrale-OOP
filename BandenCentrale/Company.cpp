@@ -26,6 +26,8 @@ Company::Company(std::string VAT, int Disc)
 
 Company::Company()
 {
+	VolumeDiscount = 0;
+	VAT = "";
 }
 
 Company::~Company()

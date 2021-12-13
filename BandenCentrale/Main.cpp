@@ -11,9 +11,9 @@ enum class TypeWerknemer
 };
 
 //update array accordingly
-void (*ExecutionPerState[])(TireCenter * TC) = { Dummy, Dummy, Dummy, Dummy, Dummy, SearchArticle, AddArticle, Dummy, Dummy, ChangeCompany };
+void (*ExecutionPerState[])(TireCenter * TC) = { ChangeArticle, Dummy, Dummy, AddCustomer, Dummy, SearchArticle, AddArticle, DeleteArticle, Dummy, ChangeCompany };
 
-std::string EmployeeOptions[] = {
+const std::string EmployeeOptions[] = {
 	"Exit",
 	"Change Article",
 	"Place Order",
@@ -23,7 +23,7 @@ std::string EmployeeOptions[] = {
 	"Search Articles"
 };
 
-std::string ManagerOptions[]
+const std::string ManagerOptions[]
 {
 	"Add Article",
 	"Delete Article",
@@ -53,22 +53,6 @@ int main(void)
 	int Choice = 1;
 	while (Choice != 0)
 	{
-		/*
-		std::cout << "Make your choice:\n";
-		std::cout << "0: Exit\n";
-		std::cout << "1: Change Article\n";
-		std::cout << "2: Change Customer\n";
-		std::cout << "3: Place order\n";
-		std::cout << "4: Check Invoices\n";
-		std::cout << "5: Add Customer\n";
-		std::cout << "6: Update Stock\n";
-		if (CurrentType == TypeWerknemer::Manager)
-		{
-			std::cout << "7: Add Article\n";
-			std::cout << "8: Delete Article\n";
-			std::cout << "9: Delete Customer\n";
-		}*/
-
 		int EmployeeArrSize = sizeof(EmployeeOptions) / sizeof(EmployeeOptions[0]);
 
 		for (int j = 0; j < EmployeeArrSize; j++)

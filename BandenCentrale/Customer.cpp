@@ -19,9 +19,3 @@ Customer::Customer(std::string Name, std::string Addr, char Type)
 	this->Address = Addr;
 	CType = Type;
 }
-Customer::~Customer()
-{
-	Name = "";
-	Address = "";
-	CType = NULL;
-}
