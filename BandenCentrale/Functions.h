@@ -12,3 +12,5 @@ void ChangeCompany(TireCenter*);
 void ChangeArticle(TireCenter*);
 void DeleteArticle(TireCenter*);
 void AddCustomer(TireCenter*);
+void DeleteCustomer(TireCenter*);
+void SearchCustomer(TireCenter*);

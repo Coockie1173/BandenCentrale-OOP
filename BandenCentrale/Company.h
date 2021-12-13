@@ -14,5 +14,6 @@ public:
 	Company(std::string VAT, int Disc);
 	Company();
 	~Company();
+	void PrintData() override;
 };
 

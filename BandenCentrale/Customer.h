@@ -17,5 +17,7 @@ public:
 	Customer();
 	Customer(std::string Name, std::string Addr, char Type);
 	virtual ~Customer() = default;
+	virtual void PrintData();
+	void PrintBaseData();
 };
 

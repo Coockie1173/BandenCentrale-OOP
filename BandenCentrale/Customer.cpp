@@ -1,4 +1,11 @@
 #include "Customer.h"
+#include <iostream>
+
+void Customer::PrintBaseData()
+{
+	std::cout << "\t" << "Name: " << this->GetName();
+	std::cout << "\t" << "Address: " << this->GetAddress();
+}
 
 std::string Customer::GetName() { return Name; };
 void Customer::SetName(std::string NewName) { Name = NewName; };
@@ -18,4 +25,9 @@ Customer::Customer(std::string Name, std::string Addr, char Type)
 	this->Name = Name;
 	this->Address = Addr;
 	CType = Type;
+}
+
+void Customer::PrintData()
+{
+	PrintBaseData();
 }

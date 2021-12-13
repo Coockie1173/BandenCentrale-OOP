@@ -196,7 +196,8 @@ TireCenter LoadTireCenter()
 			}
 			default:
 			{
-				
+				//???? someone is modifying our files! Let's assume it's a rim and pray!
+				A = new Rim();
 			}
 		}
 

@@ -11,16 +11,19 @@ enum class TypeWerknemer
 };
 
 //update array accordingly
-void (*ExecutionPerState[])(TireCenter * TC) = { ChangeArticle, Dummy, Dummy, AddCustomer, Dummy, SearchArticle, AddArticle, DeleteArticle, Dummy, ChangeCompany };
+void (*ExecutionPerState[])(TireCenter * TC) = { ChangeArticle, Dummy, Dummy, AddCustomer, Dummy, 
+												 SearchArticle, SearchCustomer, AddArticle, DeleteArticle, DeleteCustomer,
+												 ChangeCompany };
 
 const std::string EmployeeOptions[] = {
 	"Exit",
-	"Change Article",
-	"Place Order",
-	"Check Invoices",
+	"Change Article", //WIP
+	"Place Order", //TODO
+	"Check Invoices", //TODO
 	"Add Customer",
-	"Update Stock",
-	"Search Articles"
+	"Update Stock", //TODO?
+	"Search Articles",
+	"Search Customers",
 };
 
 const std::string ManagerOptions[]
@@ -45,8 +48,8 @@ int main(void)
 	while (Input != 0 && Input != 1)
 	{
 		std::cout << "What type of employee are you?\nManager = 0\nEmployee = 1\n";
-		std::cin.clear();
 		std::cin >> Input;
+		std::cin.ignore();
 	}
 	CurrentType = (TypeWerknemer)Input;
 

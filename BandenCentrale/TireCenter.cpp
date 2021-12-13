@@ -75,6 +75,11 @@ void TireCenter::RemoveArticle(int ArticleIndex)
     Articles.erase(Articles.begin() + ArticleIndex);
 }
 
+void TireCenter::RemoveCustomer(int ArticleIndex)
+{
+    Customers.erase(Customers.begin() + ArticleIndex);
+}
+
 TireCenter::TireCenter()
 {
 }

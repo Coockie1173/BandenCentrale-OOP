@@ -1,5 +1,6 @@
 #include "Company.h"
 #include "Customer.h"
+#include <iostream>
 
 void Company::SetVAT(std::string NewVAT)
 {
@@ -34,4 +35,11 @@ Company::~Company()
 {
 	VAT = "";
 	VolumeDiscount = NULL;
+}
+
+void Company::PrintData()
+{
+	PrintBaseData();
+	std::cout << "\t" << "VAT: " << this->GetVat();
+	std::cout << "\t" << "VolumeDiscount: " << this->GetVolumeDiscount();
 }

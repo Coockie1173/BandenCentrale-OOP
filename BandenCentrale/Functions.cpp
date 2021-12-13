@@ -23,8 +23,8 @@ void AddArticle(TireCenter * TC)
 	while (TypeChoice != 0 && TypeChoice != 1)
 	{
 		std::cout << "Choose article type:\n0: Rim\n1: Tire\n";
-		std::cin.clear();
 		std::cin >> TypeChoice;
+		std::cin.ignore();
 	}
 
 	char TypeA = 'N';
@@ -43,24 +43,29 @@ void AddArticle(TireCenter * TC)
 #pragma region Input
 	std::string Name;
 	std::cout << "Name of product: ";
-	std::cin.clear();
-	std::cin >> Name;
+	std::getline(std::cin, Name);
+
 	std::string ManuFacturer;
 	std::cout << "Manufacturer of product: ";
-	std::cin.clear();
-	std::cin >> ManuFacturer;
+	std::getline(std::cin, ManuFacturer);
+
 	int Diameter;
 	std::cout << "Diameter of product: ";
 	std::cin.clear();
 	std::cin >> Diameter;
+	std::cin.ignore();
+
 	float Price;
 	std::cout << "Price of product: ";
 	std::cin.clear();
 	std::cin >> Price;
+	std::cin.ignore();
+
 	int Stock;
 	std::cout << "Stock of product: ";
 	std::cin.clear();
 	std::cin >> Stock;
+	std::cin.ignore();
 
 #pragma endregion
 
@@ -91,9 +96,12 @@ void AddRim(Article *A)
 	bool Aluminum;
 	std::cout << "Is the rim aluminum (1/0)?\n";
 	std::cin >> Aluminum;
+	std::cin.ignore();
+
 	std::string Colour;
 	std::cout << "Rim colour\n";
-	std::cin >> Colour;
+	std::getline(std::cin, Colour);
+
 	int W;
 	std::cout << "Rim Width\n";
 	std::cin >> W;
@@ -119,16 +127,16 @@ void AddTire(Article *A)
 
 	std::cout << "Tire Width\n";
 	std::cin >> Width;
-	std::cin.clear();
+	std::cin.ignore();
 	std::cout << "Tire Height\n";
 	std::cin >> Height;
-	std::cin.clear();
+	std::cin.ignore();
 	std::cout << "Tire Speed Index\n";
-	std::cin >> SI;
-	std::cin.clear();
+	std::getline(std::cin, SI);
+	std::cin.ignore();
 	std::cout << "Tire Season\n";
 	std::cin >> Season;
-	std::cin.clear();
+	std::cin.ignore();
 
 	R->SetWidth(Width);
 	R->SetHeight(Height);
@@ -148,22 +156,36 @@ void DrawArticleInformation(int ArticleIndex, Article& A)
 
 void SearchArticle(TireCenter* TC)
 {
-	std::cout << "Filter on: " << "\t1. Name\n\t\t2. Type\n\t\t3. Manufacturer\n\t\t4. Diameter (Tire)\n\t\t5. Width (Rim/Tire)\n\t\t6. Display All\n\t\t7. Cancel\n";
+	std::cout << "Filter on: " << "\t1. Name\n\t\t2. Type\n\t\t3. Manufacturer\n\t\t4. Display All\n\t\t5. Cancel\n";
 
 	int Choice = 0;
-	while (Choice != 7)
+	while (Choice != 5)
 	{
 		std::cin.clear();
 		std::cin >> Choice;
+		std::cin.ignore();
 
 		switch (Choice)
 		{
 		case 1:
-
+		{
+			std::cout << "Give Name of Article to filter on\n";
+			std::string Input = "";
+			std::getline(std::cin, Input);
+			int ArticleIndex = 0;
+			for (Article* A : TC->GetArticles())
+			{
+				if (A->GetName().find(Input))
+				{
+					DrawArticleInformation(ArticleIndex, *A);
+				}
+				ArticleIndex++;
+			}
 			break;
+		}
 		case 2:
 		{
-			std::cout << "Geef Type Article (T/R)\n";
+			std::cout << "Give Type Article (T/R)\n";
 			char Input = NULL;
 			std::cin.clear();
 			std::cin >> Input;
@@ -178,16 +200,33 @@ void SearchArticle(TireCenter* TC)
 			}
 			break;
 		}
-		case 6:
+		case 3:
+		{
+			std::cout << "Give Manufacturer of Article to filter on\n";
+			char Input = NULL;
+			std::cin.clear();
+			std::cin >> Input;
+			int ArticleIndex = 0;
+			for (Article* A : TC->GetArticles())
 			{
+				if (A->GetManuFacturer().find(Input))
+				{
+					DrawArticleInformation(ArticleIndex, *A);
+				}
+				ArticleIndex++;
+			}
+			break;
+		}
+		case 4:
+		{
 				int ArticleIndex = 0;
 				for (Article* A : TC->GetArticles())
 				{
 					DrawArticleInformation(ArticleIndex, *A);
 					ArticleIndex++;
 				}
-			}
-			break;
+				break;
+			}			
 		default:
 			break;
 		}
@@ -196,10 +235,10 @@ void SearchArticle(TireCenter* TC)
 
 void ChangeCompany(TireCenter* TC)
 {
-	std::cout << "1. Change Company Name\n2. Change Company Address\n3. Exit";
 	int Choice = -1;
 	while (Choice != 3)
 	{
+		std::cout << "1. Change Company Name\n2. Change Company Address\n3. Exit";
 		std::cin.clear();
 		std::cin >> Choice;
 		std::cin.ignore();
@@ -208,20 +247,16 @@ void ChangeCompany(TireCenter* TC)
 			case(1):
 			{
 				std::string NewName;
-				std::cout << "Give new name (NO SPACES):\n";
-				std::cin.clear();
-				std::cin >> NewName;
-				std::cin.ignore();
+				std::cout << "Give new address:\n";
+				std::getline(std::cin, NewName);
 				TC->SetName(NewName);
 				break;
 			}
 			case(2):
 			{
 				std::string NewName;
-				std::cout << "Give new address (NO SPACES):\n";
-				std::cin.clear();
-				std::cin >> NewName;
-				std::cin.ignore();
+				std::cout << "Give new address:\n";
+				std::getline(std::cin, NewName);
 				TC->SetAddress(NewName);
 				break;
 			}
@@ -258,6 +293,7 @@ void ChangeArticle(TireCenter* TC)
 	int Choice;
 	std::cin.clear();
 	std::cin >> Choice;
+	std::cin.ignore();
 
 	std::vector<Article*> Arts = TC->GetArticles();
 
@@ -309,11 +345,31 @@ void DeleteArticle(TireCenter* TC)
 	int Choice;
 	std::cin.clear();
 	std::cin >> Choice;
+	std::cin.ignore();
 
 	std::vector<Article*> Arts = TC->GetArticles();
 	if (Choice >= 0 && (size_t)Choice < Arts.size())
 	{
 		TC->RemoveArticle(Choice);
+	}
+	else
+	{
+		std::cout << "Invalid index!\n";
+	}
+}
+
+void DeleteCustomer(TireCenter* TC)
+{
+	std::cout << "Give the item index of the customer you want to delete: ";
+	int Choice;
+	std::cin.clear();
+	std::cin >> Choice;
+	std::cin.ignore();
+
+	std::vector<Customer*> Custs = TC->GetCustomers();
+	if (Choice >= 0 && (size_t)Choice < Custs.size())
+	{
+		TC->RemoveCustomer(Choice);
 	}
 	else
 	{
@@ -327,6 +383,7 @@ void AddCustomer(TireCenter* TC)
 	std::cout << "Is this a company? (1 if true): ";
 	int Comp;
 	std::cin >> Comp;
+	std::cin.ignore();
 	std::cin.clear();
 	if (Comp == 1)
 	{
@@ -342,11 +399,9 @@ void AddCustomer(TireCenter* TC)
 	std::string Buf;
 	std::cout << "Name: ";
 	std::getline(std::cin, Buf, '\n');
-	std::getline(std::cin, Buf, '\n');
 	std::cin.clear();
 	C->SetName(Buf);
 	std::cout << "Address: ";
-	std::getline(std::cin, Buf, '\n');
 	std::getline(std::cin, Buf, '\n');
 	std::cin.clear();
 	C->SetAddress(Buf);
@@ -356,15 +411,96 @@ void AddCustomer(TireCenter* TC)
 		Company* Comp = dynamic_cast<Company*>(C);
 		std::cout << "VAT number: ";
 		std::getline(std::cin, Buf, '\n');
-		std::getline(std::cin, Buf, '\n');
 		std::cin.clear();
 		Comp->SetVAT(Buf);
 		int VolDisc;
 		std::cout << "Volume discount: ";
 		std::cin >> VolDisc;
+		std::cin.ignore();
 		std::cin.clear();
 		Comp->SetVolumeDiscount(VolDisc);
 	}
 
 	TC->AddCustomer(C);
+}
+
+void SearchCustomer(TireCenter* TC)
+{
+	int Choice = 0;
+	while (Choice != 4)
+	{
+		std::cout << "Filter on: \n\t1. Name\n\t2. Address\n\t3. Type\n\t4. No Filter\n\t5. Exit";
+		std::cin.clear();
+		std::cin >> Choice;
+		std::cin.ignore();
+
+		switch (Choice)
+		{
+		case 1:
+		{
+			std::cout << "Give Name to filter on\n";
+			std::string Input = "";
+			std::getline(std::cin, Input);
+			int ArticleIndex = 0;
+			for (Customer* A : TC->GetCustomers())
+			{
+				if (A->GetName().find(Input))
+				{
+					std::cout << ArticleIndex << ":\n";
+					A->PrintData();
+				}
+				ArticleIndex++;
+			}
+			break;
+		}
+		case 2:
+		{
+			std::cout << "Give Address to filter on\n";
+			std::string Input = "";
+			std::getline(std::cin, Input);
+			int ArticleIndex = 0;
+			for (Customer* A : TC->GetCustomers())
+			{
+				if (A->GetAddress().find(Input))
+				{
+					std::cout << ArticleIndex << ":\n";
+					A->PrintData();
+				}
+				ArticleIndex++;
+			}
+			break;
+		}
+		case 3:
+		{
+			std::cout << "Give Type To filter on (P/C)\n";
+			char Input = NULL;
+			std::cin.clear();
+			std::cin >> Input;
+			int ArticleIndex = 0;
+			for (Customer* A : TC->GetCustomers())
+			{
+				if (A->GetCType() == Input)
+				{
+					std::cout << ArticleIndex << ":\n";
+					A->PrintData();
+				}
+				ArticleIndex++;
+			}
+			break;
+		}
+		case 4:
+		{
+			int ArticleIndex = 0;
+			for (Customer* A : TC->GetCustomers())
+			{
+				std::cout << ArticleIndex << ":\n";
+				A->PrintData();
+				ArticleIndex++;
+			}
+			break;
+		}
+		default:
+			break;
+		}
+	}
 }
