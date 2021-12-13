@@ -7,6 +7,11 @@ void Customer::PrintBaseData()
 	std::cout << "\t" << "Address: " << this->GetAddress();
 }
 
+Customer* Customer::Clone()
+{
+	return new Customer(*this);
+}
+
 std::string Customer::GetName() { return Name; };
 void Customer::SetName(std::string NewName) { Name = NewName; };
 std::string Customer::GetAddress() { return Address; };

@@ -15,5 +15,6 @@ public:
 	Company();
 	~Company();
 	void PrintData() override;
+	Customer* Clone() override;
 };
 

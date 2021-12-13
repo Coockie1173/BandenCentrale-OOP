@@ -19,5 +19,6 @@ public:
 	~Rim();
 
 	void PrintInfo() override;
+	Article* Clone() override;
 };
 

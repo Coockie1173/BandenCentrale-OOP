@@ -59,3 +59,8 @@ void Rim::PrintInfo()
     std::cout << "\t" << "Colour: " << this->GetColour() << "\n";
     std::cout << "\t" << "Width (Rim): " << this->GetWidth() << "\n";
 }
+
+Article* Rim::Clone()
+{
+    return new Rim(*this);
+}

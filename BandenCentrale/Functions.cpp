@@ -4,6 +4,7 @@
 #include "Tire.h"
 #include "Customer.h"
 #include "Company.h"
+#include "Invoice.h"
 
 void Dummy(TireCenter * TC)
 {
@@ -502,5 +503,63 @@ void SearchCustomer(TireCenter* TC)
 		default:
 			break;
 		}
+	}
+}
+
+void PlaceOrder(TireCenter* TC)
+{
+	//allocate invoice
+	Invoice* MyInvoice = new Invoice();
+
+	//if cancelled anywhere, de-allocate to avoid memleaks. Don't wanna make unneeded invoices that mess everything up, do we now?
+	int CustomerID;
+	int ArticleID;
+	int Quantity;
+
+	std::cout << "Enter Customer ID: ";
+	std::cin >> CustomerID;
+	std::cin.ignore();
+
+	std::vector<Customer*> Custs = TC->GetCustomers();
+	if (CustomerID >= 0 && (size_t)CustomerID < Custs.size())
+	{
+		//VALID
+		std::cout << "Enter Article ID: ";
+		std::cin >> ArticleID;
+		std::cin.ignore();
+		std::vector<Article*> Arts = TC->GetArticles();
+		if (ArticleID >= 0 && (size_t)ArticleID < Arts.size())
+		{
+			//ALSO VALID WOOOT. One more check and we know for sure if the invoice can be made properly
+			Article* CurrentSelection = Arts[ArticleID];
+			int Stock = CurrentSelection->GetStock();
+			std::cout << "Enter Amount: ";
+			std::cin >> Quantity;
+			std::cin.ignore();
+			if (Stock >= Quantity)
+			{
+				//ORDER AWAY
+
+			}
+			else
+			{
+				std::cout << "Not enough in stock!\n";
+				delete MyInvoice;
+				return;
+			}
+		}
+		else
+		{
+			std::cout << "Invalid ID!\n";
+			delete MyInvoice;
+			return;
+		}
+	}
+	else
+	{
+		//INVALID
+		std::cout << "Invalid ID!\n";
+		delete MyInvoice;
+		return;
 	}
 }

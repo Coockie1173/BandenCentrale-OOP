@@ -29,7 +29,7 @@ public:
 	virtual ~Article();
 
 	virtual void PrintInfo();
-
+	virtual Article* Clone();
 	void PrintBaseData();
 };
 

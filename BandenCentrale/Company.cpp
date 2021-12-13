@@ -43,3 +43,8 @@ void Company::PrintData()
 	std::cout << "\t" << "VAT: " << this->GetVat();
 	std::cout << "\t" << "VolumeDiscount: " << this->GetVolumeDiscount();
 }
+
+Customer* Company::Clone()
+{
+	return new Company(*this);
+}

@@ -19,5 +19,6 @@ public:
 	virtual ~Customer() = default;
 	virtual void PrintData();
 	void PrintBaseData();
+	virtual Customer* Clone();
 };
 

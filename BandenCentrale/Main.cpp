@@ -11,7 +11,7 @@ enum class TypeWerknemer
 };
 
 //update array accordingly
-void (*ExecutionPerState[])(TireCenter * TC) = { ChangeArticle, Dummy, Dummy, AddCustomer, Dummy, 
+void (*ExecutionPerState[])(TireCenter * TC) = { ChangeArticle, PlaceOrder, Dummy, AddCustomer, Dummy,
 												 SearchArticle, SearchCustomer, AddArticle, DeleteArticle, DeleteCustomer,
 												 ChangeCompany };
 

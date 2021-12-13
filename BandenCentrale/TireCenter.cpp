@@ -72,12 +72,16 @@ void TireCenter::AddArticle(Article* A)
 
 void TireCenter::RemoveArticle(int ArticleIndex)
 {
+    Article* C = Articles[ArticleIndex];
     Articles.erase(Articles.begin() + ArticleIndex);
+    delete C;
 }
 
 void TireCenter::RemoveCustomer(int ArticleIndex)
 {
+    Customer* C = Customers[ArticleIndex];
     Customers.erase(Customers.begin() + ArticleIndex);
+    delete C;
 }
 
 TireCenter::TireCenter()

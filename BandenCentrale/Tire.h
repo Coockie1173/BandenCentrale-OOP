@@ -24,5 +24,6 @@ public:
 	~Tire();
 
 	void PrintInfo() override;
+	Article* Clone() override;
 };
 

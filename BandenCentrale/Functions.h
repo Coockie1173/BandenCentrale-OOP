@@ -14,3 +14,4 @@ void DeleteArticle(TireCenter*);
 void AddCustomer(TireCenter*);
 void DeleteCustomer(TireCenter*);
 void SearchCustomer(TireCenter*);
+void PlaceOrder(TireCenter*);

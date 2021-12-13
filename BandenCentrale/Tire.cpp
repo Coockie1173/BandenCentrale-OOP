@@ -73,3 +73,8 @@ void Tire::PrintInfo()
     std::cout << "\t" << "Speed Index: " << this->GetSpeedIndex() << "\n";
     std::cout << "\t" << "Season: " << this->GetSeason() << "\n";
 }
+
+Article* Tire::Clone()
+{
+    return new Tire(*this);
+}
