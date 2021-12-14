@@ -513,7 +513,8 @@ void PlaceOrder(TireCenter* TC)
 
 	//if cancelled anywhere, de-allocate to avoid memleaks. Don't wanna make unneeded invoices that mess everything up, do we now?
 	int CustomerID;
-	int ArticleID;
+	//keep ids stored for quantity sake
+	//std::vector<int> SelectedArticleIds;
 	int Quantity;
 
 	std::cout << "Enter Customer ID: ";
@@ -524,7 +525,90 @@ void PlaceOrder(TireCenter* TC)
 	if (CustomerID >= 0 && (size_t)CustomerID < Custs.size())
 	{
 		//VALID - start adding Articles
-		
+		int Choice = 0;
+		std::vector<Article*> Arts = TC->GetArticles();
+		std::vector<int> Choices;
+		MyInvoice->SetCustomer(Custs[CustomerID]->Clone());
+		while (Choice != -1 && Choice != -2)
+		{
+			std::cout << "Enter article ID (-1 to end adding, -2 to cancel making invoice): ";
+			std::cin >> Choice;
+			std::cin.ignore();
+			if (Choice >= 0 && Choice < Arts.size() && std::find(Choices.begin(), Choices.end(), Choice) == Choices.end())
+			{
+				//GOOD INDEX
+				std::cout << "Are you sure you want to add this article (0 for no, 1 for yes)?\n";
+				Arts[Choice]->PrintInfo();
+				//just making sure...
+				int Reassure = 0;
+				std::cin >> Reassure;
+				std::cin.ignore();
+				if (Reassure != 0)
+				{
+					//alright now quantity
+					std::cout << "How many would you like to buy\n";
+					std::cin >> Quantity;
+					std::cin.ignore();
+
+					if (Quantity <= Arts[Choice]->GetStock())
+					{
+						//enough in stock
+						Article* A = Arts[Choice]->Clone();
+						MyInvoice->AddArticle(A);
+						MyInvoice->AddQuantity(Quantity);
+						Choices.push_back(Choice);
+					}
+					else
+					{
+						std::cout << "Not enough in stock!\n";
+					}
+				}
+			}
+			else if (Choice != -1 && Choice != -2)
+			{
+				std::cout << "Invalid Index/index already added\n";
+			}
+		}		
+		if (Choice != -2)
+		{
+			//not cancelled
+			//calculate price once since it won't change
+			int TotalItems = 0;
+			float TotalPrice = 0;
+			std::vector<int> Quantitties = MyInvoice->GetQuantities();
+			for (int i = 0; i < Choices.size(); i++)
+			{
+				TotalItems += Quantitties[i];
+				TotalPrice += MyInvoice->GetArticles()[i]->GetPrice() * TotalItems;
+				Arts[Choices[i]]->SetStock(Arts[Choices[i]]->GetStock() - Quantitties[i]);
+			}			
+			MyInvoice->SetPrice(TotalPrice);
+			//DISCOUNT PERCENTAGE IF BIG ORDER :)
+			if (MyInvoice->GetCustomer()->GetCType() == 'C')
+			{
+				//ELIGIBLE FOR DISCOUNT
+				Company* C = dynamic_cast<Company*>(MyInvoice->GetCustomer());
+				if (C->GetVolumeDiscount() > TotalItems)
+				{
+					//real discount hours
+					//10% discount
+					MyInvoice->SetDiscount(10);
+				}
+			}
+			else
+			{
+				MyInvoice->SetDiscount(0);
+			}
+
+			std::cout << "End price: " << MyInvoice->CalcPrice() << "\n";
+
+			TC->AddInvoice(MyInvoice);
+		}
+		else
+		{
+			delete MyInvoice;
+			return;
+		}
 	}
 	else
 	{

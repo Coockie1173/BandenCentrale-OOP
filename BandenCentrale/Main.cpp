@@ -20,7 +20,7 @@ void (*ExecutionPerState[])(TireCenter * TC) = { ChangeArticle, PlaceOrder, Dumm
 const std::string EmployeeOptions[] = {
 	"Exit",
 	"Change Article", //WIP
-	"Place Order", //TODO
+	"Place Order",
 	"Check Invoices", //TODO
 	"Add Customer",
 	"Update Stock", //TODO?

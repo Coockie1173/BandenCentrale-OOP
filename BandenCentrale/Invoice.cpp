@@ -74,6 +74,11 @@ Invoice::~Invoice()
 {
     Price = NULL;
     Discount = NULL;
+    for (Article* A : Articles)
+    {
+        delete A;
+    }
+    delete Cust;
 }
 
 void Invoice::AddQuantity(int Q)

@@ -44,6 +44,11 @@ void Article::PrintInfo()
 {
 }
 
+Article* Article::Clone()
+{
+	return nullptr;
+}
+
 void Article::PrintBaseData()
 {
 	std::cout << "\t" << "Name: " << this->GetName() << "\n";

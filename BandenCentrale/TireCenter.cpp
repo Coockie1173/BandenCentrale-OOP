@@ -84,6 +84,38 @@ void TireCenter::RemoveCustomer(int ArticleIndex)
     delete C;
 }
 
+void TireCenter::AddInvoice(Invoice* I)
+{
+    Invoices.push_back(I);
+}
+
+void TireCenter::RemoveInvoice(int InvoiceID)
+{
+    Invoice* C = Invoices[InvoiceID];
+    Invoices.erase(Invoices.begin() + InvoiceID);
+    delete C;
+}
+
+void TireCenter::SetInvoices(std::vector<Invoice*> Invoices)
+{
+    this->Invoices = Invoices;
+}
+
+Invoice* TireCenter::GetInvoice(int InvoiceID)
+{
+    return Invoices[InvoiceID];
+}
+
+std::vector<Invoice*> TireCenter::GetInvoices()
+{
+    return Invoices;
+}
+
+void TireCenter::SetInvoice(Invoice* I, int Index)
+{
+    Invoices[Index] = I;
+}
+
 TireCenter::TireCenter()
 {
 }

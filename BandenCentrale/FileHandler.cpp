@@ -147,6 +147,8 @@ void SaveTireCenter(TireCenter* TC)
 		}
 	}
 
+	std::vector<Invoice*> Invoices = TC->GetInvoices();
+
 	wf.close();
 
 	if (!wf.good()) {

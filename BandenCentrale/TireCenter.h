@@ -3,6 +3,7 @@
 #include <vector>
 #include "Customer.h"
 #include "Article.h"
+#include "Invoice.h"
 
 class TireCenter
 {
@@ -11,7 +12,7 @@ private:
 	std::string Address;
 	std::vector<Article*> Articles;
 	std::vector<Customer*> Customers;
-
+	std::vector<Invoice*> Invoices;
 public:
 	std::string GetName();
 	void SetName(std::string NewName);
@@ -29,6 +30,12 @@ public:
 	void AddArticle(Article* A);
 	void RemoveArticle(int ArticleIndex);
 	void RemoveCustomer(int ArticleIndex);
+	void AddInvoice(Invoice* I);
+	void RemoveInvoice(int InvoiceID);
+	void SetInvoices(std::vector<Invoice*> Invoices);
+	Invoice* GetInvoice(int InvoiceID);
+	std::vector<Invoice*> GetInvoices();
+	void SetInvoice(Invoice* I, int Index);
 
 	TireCenter();
 	TireCenter(std::string Name, std::string addr, std::vector<Article*> Arts, std::vector<Customer*> Customers);
