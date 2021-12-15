@@ -1,4 +1,5 @@
 #include "Invoice.h"
+#include <iostream>
 
 Customer* Invoice::GetCustomer()
 {
@@ -94,4 +95,16 @@ std::vector<int> Invoice::GetQuantities()
 void Invoice::SetQuantities(std::vector<int> Q)
 {
     Quantities = Q;
+}
+
+void Invoice::PrintInfo()
+{
+    std::cout << "Customer info:\n";
+    Cust->PrintData();
+    std::cout << "Articles: \n";
+    for (Article* A : Articles)
+    {
+        A->PrintInfo();
+    }
+    std::cout << "End price: " << CalcPrice() << "\n";
 }

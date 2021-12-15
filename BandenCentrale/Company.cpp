@@ -40,8 +40,8 @@ Company::~Company()
 void Company::PrintData()
 {
 	PrintBaseData();
-	std::cout << "\t" << "VAT: " << this->GetVat();
-	std::cout << "\t" << "VolumeDiscount: " << this->GetVolumeDiscount();
+	std::cout << "\t" << "VAT: " << this->GetVat() << "\n";
+	std::cout << "\t" << "VolumeDiscount: " << this->GetVolumeDiscount() << "\n";
 }
 
 Customer* Company::Clone()

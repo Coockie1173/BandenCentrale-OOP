@@ -3,8 +3,8 @@
 
 void Customer::PrintBaseData()
 {
-	std::cout << "\t" << "Name: " << this->GetName();
-	std::cout << "\t" << "Address: " << this->GetAddress();
+	std::cout << "\t" << "Name: " << this->GetName() << "\n";
+	std::cout << "\t" << "Address: " << this->GetAddress() << "\n";
 }
 
 Customer* Customer::Clone()

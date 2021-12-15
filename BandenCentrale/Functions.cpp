@@ -8,6 +8,7 @@
 
 void Dummy(TireCenter * TC)
 {
+	//temp data for uninmplemented stuff
 	std::cout << "DUMMY FUNCTION\n";
 }
 void ReadBaseData(Article * A, char AType, std::string Name, std::string ManuFacturer, int Diameter, float Price, int Stock);
@@ -271,6 +272,7 @@ const std::string SharedArticleOptions[] =
 	"Manufacturer",
 	"Diameter",
 	"Price",
+	"Stock"
 };
 
 const std::string TireOptions[]
@@ -332,6 +334,134 @@ void ChangeArticle(TireCenter* TC)
 				}
 				break;
 			}
+		}
+
+		Choice = 0;
+		std::cin >> Choice;
+		std::cin.ignore();		
+
+		switch (Choice)
+		{
+		case 0:
+		{
+			std::cout << "Give new name: ";
+			std::string B;
+			std::getline(std::cin, B);
+			A->SetName(B);
+			break;
+		}
+		case 1:
+		{
+			std::cout << "Give new manufacturer: ";
+			std::string B;
+			std::getline(std::cin, B);
+			A->SetManuFacturer(B);
+			break;
+		}
+		case 2:
+		{
+			std::cout << "Give new diameter: ";
+			int Dia;
+			std::cin >> Dia;
+			std::cin.ignore();
+			A->SetDiameter(Dia);
+			break;
+		}
+		case 3:
+		{
+			std::cout << "Give new price: ";
+			float Dia;
+			std::cin >> Dia;
+			std::cin.ignore();
+			A->SetPrice(Dia);
+			break;
+		}
+		case 4:
+		{
+			std::cout << "Give new stock: ";
+			int Dia;
+			std::cin >> Dia;
+			std::cin.ignore();
+			A->SetStock(Dia);
+			break;
+		}
+		case 5:
+		{
+			if (A->GetAType() == 'R')
+			{
+				Rim* R = dynamic_cast<Rim*>(A);
+				std::cout << "Give new Width: ";
+				int Dia;
+				std::cin >> Dia;
+				std::cin.ignore();
+				R->SetWidth(Dia);
+			}
+			else
+			{
+				Tire* T = dynamic_cast<Tire*>(A);
+				std::cout << "Give new Width: ";
+				int Dia;
+				std::cin >> Dia;
+				std::cin.ignore();
+				T->SetWidth(Dia);
+			}
+			break;
+		}
+		case 6:
+		{
+			if (A->GetAType() == 'R')
+			{
+				Rim* R = dynamic_cast<Rim*>(A);
+				std::cout << "Give new aluminium setting: ";
+				int Dia;
+				std::cin >> Dia;
+				std::cin.ignore();
+				R->SetAluminium(Dia);
+			}
+			else
+			{
+				Tire* T = dynamic_cast<Tire*>(A);
+				std::cout << "Give new Height: ";
+				int Dia;
+				std::cin >> Dia;
+				std::cin.ignore();
+				T->SetHeight(Dia);
+			}
+			break;
+		}
+		case 7:
+		{
+			if (A->GetAType() == 'R')
+			{
+				Rim* R = dynamic_cast<Rim*>(A);
+				std::cout << "Give new colour: ";
+				std::string B;
+				std::getline(std::cin, B);
+				R->SetColour(B);
+			}
+			else
+			{
+				Tire* T = dynamic_cast<Tire*>(A);
+				std::cout << "Give new SpeedIndex: ";
+				std::string B;
+				std::getline(std::cin, B);
+				T->SetSpeedIndex(B);
+			}
+			break;
+		}
+		case 8:
+		{
+			if (A->GetAType() == 'T')
+			{
+				Tire* T = dynamic_cast<Tire*>(A);
+				std::cout << "Give new aluminium setting: ";
+				char Dia;
+				std::cin >> Dia;
+				std::cin.ignore();
+				T->SetSeason(Dia);
+			}
+			break;
+		}
 		}
 	}
 	else
@@ -616,5 +746,88 @@ void PlaceOrder(TireCenter* TC)
 		std::cout << "Invalid ID!\n";
 		delete MyInvoice;
 		return;
+	}
+}
+
+void CheckInvoices(TireCenter* TC)
+{	
+	//show all invoices
+	int i = 0;
+	std::vector<Invoice*> Invoices = TC->GetInvoices();
+	for (Invoice* I : Invoices)
+	{
+		std::cout << i << ":\t" << I->GetCustomer()->GetName() << "\n";
+		std::cout << "\t" << I->GetPrice() << "\n";
+		i++;
+	}
+
+	int Choice = 0;
+	while (Choice != -1)
+	{
+		std::cout << "Type ID of invoice you want to read more about (-1 to stop): ";
+		std::cin >> Choice;
+		std::cin.ignore();
+
+
+		if (Choice >= 0 && Choice < Invoices.size())
+		{
+			Invoices[Choice]->PrintInfo();
+		}
+	}
+}
+
+void ChangeCustomer(TireCenter* TC)
+{
+	std::cout << "Customer ID to modify: ";
+	int Choice;
+	std::cin >> Choice;
+	std::cin.ignore();
+	std::vector<Customer*> Customers = TC->GetCustomers();
+	if (Choice >= 0 && Choice < Customers.size())
+	{
+		std::cout << "Select an option:\n\t1: Change Name\n\t2: Change Address\n";
+		if (Customers[Choice]->GetCType() == 'C')
+		{
+			std::cout << "\t3: VAT number\n\t4: Volume Discount";
+		}
+		int NextChoice;
+		std::cin >> NextChoice;
+		std::cin.ignore();
+		switch (NextChoice)
+		{
+		case 1:
+		{
+			std::cout << "Give new name: ";
+			std::string B;
+			std::getline(std::cin, B);
+			Customers[Choice]->SetName(B);
+			break;
+		}
+		case 2:
+		{
+			std::cout << "Give new address: ";
+			std::string B;
+			std::getline(std::cin, B);
+			Customers[Choice]->SetAddress(B);
+		}
+		case 3:
+		{
+			Company* C = dynamic_cast<Company*>(Customers[Choice]);
+			std::cout << "Give new VAT: ";
+			std::string B;
+			std::getline(std::cin, B);
+			C->SetVAT(B);
+		}
+		case 4:
+		{
+			Company* C = dynamic_cast<Company*>(Customers[Choice]);
+			std::cout << "Give new volumediscount: ";
+			int Dia;
+			std::cin >> Dia;
+			std::cin.ignore();
+			C->SetVolumeDiscount(Dia);
+			break;
+		}
+		}
 	}
 }

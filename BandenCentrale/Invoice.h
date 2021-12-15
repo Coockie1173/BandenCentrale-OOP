@@ -11,6 +11,7 @@ private:
 	std::vector<int> Quantities;
 	float Price;
 	int Discount;
+	float CalcDiscount();
 public:
 	Customer* GetCustomer();
 	void SetCustomer(Customer* NewCust);
@@ -20,8 +21,8 @@ public:
 	float GetPrice();
 	void SetPrice(float P);
 	int GetDiscount();
-	void SetDiscount(int D);
-	float CalcDiscount();
+	//in percentage
+	void SetDiscount(int D);	
 	float CalcPrice();
 	Invoice(Customer* C, std::vector<Article*> Arts, float Price, int Disc);
 	Invoice();
@@ -29,5 +30,6 @@ public:
 	void AddQuantity(int Q);
 	std::vector<int> GetQuantities();
 	void SetQuantities(std::vector<int> Q);
+	void PrintInfo();
 };
 

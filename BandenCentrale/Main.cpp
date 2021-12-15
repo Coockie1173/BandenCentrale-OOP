@@ -11,7 +11,7 @@ enum class TypeWerknemer
 };
 
 //update array accordingly
-void (*ExecutionPerState[])(TireCenter * TC) = { ChangeArticle, PlaceOrder, Dummy, AddCustomer, Dummy,
+void (*ExecutionPerState[])(TireCenter * TC) = { ChangeArticle, ChangeCustomer, PlaceOrder, CheckInvoices, AddCustomer,
 												 SearchArticle, SearchCustomer, AddArticle, DeleteArticle, DeleteCustomer,
 												 ChangeCompany };
 
@@ -19,11 +19,11 @@ void (*ExecutionPerState[])(TireCenter * TC) = { ChangeArticle, PlaceOrder, Dumm
 
 const std::string EmployeeOptions[] = {
 	"Exit",
-	"Change Article", //WIP
+	"Update Article",
+	"Update Customer", //WIP
 	"Place Order",
-	"Check Invoices", //TODO
+	"Check Invoices",
 	"Add Customer",
-	"Update Stock", //TODO?
 	"Search Articles",
 	"Search Customers",
 };
