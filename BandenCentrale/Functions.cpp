@@ -8,7 +8,7 @@
 
 void Dummy(TireCenter * TC)
 {
-	//temp data for uninmplemented stuff
+	//temp data for uninmplemented stuff, should go entirely unused in the end
 	std::cout << "DUMMY FUNCTION\n";
 }
 void ReadBaseData(Article * A, char AType, std::string Name, std::string ManuFacturer, int Diameter, float Price, int Stock);
@@ -177,7 +177,7 @@ void SearchArticle(TireCenter* TC)
 			int ArticleIndex = 0;
 			for (Article* A : TC->GetArticles())
 			{
-				if (A->GetName().find(Input))
+				if (!A->GetName().find(Input))
 				{
 					DrawArticleInformation(ArticleIndex, *A);
 				}
@@ -211,7 +211,7 @@ void SearchArticle(TireCenter* TC)
 			int ArticleIndex = 0;
 			for (Article* A : TC->GetArticles())
 			{
-				if (A->GetManuFacturer().find(Input))
+				if (!A->GetManuFacturer().find(Input))
 				{
 					DrawArticleInformation(ArticleIndex, *A);
 				}
@@ -575,7 +575,7 @@ void SearchCustomer(TireCenter* TC)
 			int ArticleIndex = 0;
 			for (Customer* A : TC->GetCustomers())
 			{
-				if (A->GetName().find(Input))
+				if (!A->GetName().find(Input))
 				{
 					std::cout << ArticleIndex << ":\n";
 					A->PrintData();
@@ -592,7 +592,7 @@ void SearchCustomer(TireCenter* TC)
 			int ArticleIndex = 0;
 			for (Customer* A : TC->GetCustomers())
 			{
-				if (A->GetAddress().find(Input))
+				if (!A->GetAddress().find(Input))
 				{
 					std::cout << ArticleIndex << ":\n";
 					A->PrintData();
