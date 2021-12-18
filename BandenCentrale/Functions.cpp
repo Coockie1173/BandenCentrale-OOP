@@ -149,7 +149,7 @@ void AddTire(Article *A)
 	A = R;
 }
 
-//visual studio extraction gebruikt reference IPV pointer
+//visual studio extraction gebruikt reference IPV pointer, altijd als er reference gebruikt wordt is dat door de VS extraction.
 void DrawArticleInformation(int ArticleIndex, Article& A)
 {
 	std::cout << ArticleIndex << ":";
@@ -790,6 +790,7 @@ void ChangeCustomer(TireCenter* TC)
 		{
 			std::cout << "\t3: VAT number\n\t4: Volume Discount";
 		}
+		std::cout << "\nAny other number to cancel\n";
 		int NextChoice;
 		std::cin >> NextChoice;
 		std::cin.ignore();
@@ -812,21 +813,27 @@ void ChangeCustomer(TireCenter* TC)
 		}
 		case 3:
 		{
-			Company* C = dynamic_cast<Company*>(Customers[Choice]);
-			std::cout << "Give new VAT: ";
-			std::string B;
-			std::getline(std::cin, B);
-			C->SetVAT(B);
+			if (Customers[Choice]->GetCType() == 'C')
+			{
+				Company* C = dynamic_cast<Company*>(Customers[Choice]);
+				std::cout << "Give new VAT: ";
+				std::string B;
+				std::getline(std::cin, B);
+				C->SetVAT(B);
+			}
 		}
 		case 4:
 		{
-			Company* C = dynamic_cast<Company*>(Customers[Choice]);
-			std::cout << "Give new volumediscount: ";
-			int Dia;
-			std::cin >> Dia;
-			std::cin.ignore();
-			C->SetVolumeDiscount(Dia);
-			break;
+			if (Customers[Choice]->GetCType() == 'C')
+			{
+				Company* C = dynamic_cast<Company*>(Customers[Choice]);
+				std::cout << "Give new volumediscount: ";
+				int Dia;
+				std::cin >> Dia;
+				std::cin.ignore();
+				C->SetVolumeDiscount(Dia);
+				break;
+			}
 		}
 		}
 	}

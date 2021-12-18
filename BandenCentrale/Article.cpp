@@ -14,8 +14,6 @@ void Article::SetPrice(float NewPrice) { Price = NewPrice; }
 char Article::GetAType() { return AType; }
 void Article::SetAType(char NewType) { AType = NewType; }
 
-
-
 Article::Article(std::string Name, std::string Fac, int Stock, int Diameter, float Price, char Type)
 {
 	this->Name = Name;
